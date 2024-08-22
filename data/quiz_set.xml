@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
 <quiz>
     <question>
         <text>Quel est le principal avantage des trains épicycloïdaux en termes de réduction de vitesse par rapport à un engrenage simple ?</text>
@@ -29,4 +30,12 @@
         </options>
         <answer>3. De la trajectoire suivant une épicycloïde d'un point des satellites par rapport au planétaire intérieur.</answer>
     </question>
-</quiz>
+    <question>
+        <text>Quelles sont les dates du règne d'Ashurbanipal ?  </text>
+            <options><option correct="true">de -669 à -631</option>
+            <option correct="false">de -754 à -702 </option>
+                <option correct="false">de -1804 à 1790 environ</option>
+                <option correct="false" />
+            </options>
+    </question>
+<question><text>Quelle était la couleur du cheval blanc d'Henri IV ? </text><options><option correct="false">marron</option><option correct="false">noir</option><option correct="true">blanc</option><option correct="false">vert</option></options></question></quiz>
