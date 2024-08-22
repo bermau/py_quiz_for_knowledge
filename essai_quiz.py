@@ -1,5 +1,5 @@
 import xml.etree.ElementTree as ET
-
+import random
 # test
 
 # Charger le fichier XML
@@ -33,8 +33,19 @@ def poser_question(question_element):
     return user_answer == correct_option_index
 
 
-def quiz():
-    for question in root.findall('question'):
+def quiz(fraction = 1.0):
+    # Extraire toutes les questions
+    questions = root.findall('question')
+    # les mélanger
+    random.shuffle(questions)
+
+    total_questions = len(questions)
+    num_questions = int(total_questions * fraction)
+    selected_questions = questions[:num_questions]
+
+    for question in selected_questions:
+        # Mélanger les questions
+
         if poser_question(question):
             print("Bonne réponse !")
         else:
