@@ -80,8 +80,13 @@ def ajouter_quiz():
     # Ajouter la nouvelle question à la racine
     root.append(new_question)
 
+    # Indentation
+    ET.indent(tree, space="  ", level=0)
+
     # Sauvegarder le fichier XML
-    tree.write(MAIN_FILE, encoding='utf-8', xml_declaration=True)
+    tree.write(MAIN_FILE, encoding='utf-8'
+               # , xml_declaration=True
+               )
     print("Nouveau quiz ajouté et enregistré avec succès !")
 
 
