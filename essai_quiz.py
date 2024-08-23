@@ -14,24 +14,25 @@ def poser_question(question_element):
     question_text = question_element.find('text').text
     print(question_text)
 
-    # Extraire les options de réponse
+    # Extraire les options de réponse, les présenter dans un ordre aléatoire.
     options = question_element.find('options')
-    for idx, option in enumerate(options.findall('option'), 1):
-        print(f"{idx}. {option.text}")
+    reponses_possibles = options.findall('option')
+    random.shuffle(reponses_possibles)
+
+    for idx, item in enumerate(reponses_possibles, 1):
+        print(f"{idx}. {item.text}")
 
     # Demander une réponse à l'utilisateur
-    user_answer = int(input("Votre réponse (entrez le numéro): "))
+    user_answer_int = int(input("Votre réponse (entrez le numéro): "))
 
     # Vérifier la réponse
-    correct_option_index = None
-    for idx, option in enumerate(options.findall('option'), 1):
-        if option.get('correct') == 'true':
-            correct_option_index = idx
-            break
 
-    # Retourner si la réponse est correcte ou non
-    return user_answer == correct_option_index
+    correctness = reponses_possibles[user_answer_int-1].get('correct', None)
 
+    if correctness == "true":
+        return True
+    else:
+        return False
 
 def quiz(fraction = 1.0):
     # Extraire toutes les questions
