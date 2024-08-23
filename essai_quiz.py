@@ -24,10 +24,10 @@ def poser_question(question_element):
 
     # Demander une réponse à l'utilisateur
     user_answer_int = int(input("Votre réponse (entrez le numéro): "))
-
+    if user_answer_int >= len(reponses_possibles) or user_answer_int < 0:
+        return False
     # Vérifier la réponse
-
-    correctness = reponses_possibles[user_answer_int-1].get('correct', None)
+    correctness = reponses_possibles[user_answer_int - 1].get('correct', None)
 
     if correctness == "true":
         return True
