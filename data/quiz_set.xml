@@ -38,4 +38,4 @@
                 <option correct="false" />
             </options>
     </question>
-<question><text>Quelle était la couleur du cheval blanc d'Henri IV ? </text><options><option correct="false">marron</option><option correct="false">noir</option><option correct="true">blanc</option><option correct="false">vert</option></options></question></quiz>
+<question><text>Quelle était la couleur du cheval blanc d'Henri IV ? </text><options><option correct="false">marron</option><option correct="false">noir</option><option correct="true">blanc</option><option correct="false">vert</option></options></question><question><text>Quel est mon numéro de téléphone ?</text><options><option correct="false">24-45</option><option correct="true">12-38</option><option correct="false">15_72</option><option correct="false">15-63</option></options></question><question><text>Quel le numéro de notre cadre ?</text><options><option correct="false">14-63</option><option correct="true">15-63</option><option correct="false">15-64 ?</option><option correct="false">11-63 </option></options></question></quiz>
