@@ -3,13 +3,45 @@ import random
 # test
 
 # Charger le fichier XML
-MAIN_FILE = 'data/quiz_set.xml'
+MAIN_FILE = 'data/quiz_set_evoluted.xml'
 tree = ET.parse(MAIN_FILE)
 
 root = tree.getroot()
 
+class Question:
+    def __init__(self, text):
+        self.text = text
 
-def poser_question(question_element):
+    def poser(self):
+        raise NotImplementedError("Cette méthode n'a pas été implémentée.")
+
+class VraiFaux(Question):
+    def __init__(self, text):
+        super().__init__(text)
+
+
+    def poser(self):
+        print(self.text)
+        rep = input("répondre par vrai ou faux").lower()
+        return rep
+
+
+class QuestionChoixMultiple(Question):
+    """Epreuve dans laquelle on doit saisir exactement une chaîne de caractères"""
+    def __init__(self, text, choix, ):
+        super().__init__(text)
+        self.choix = choix
+        # self.correct = correct
+
+    def poser(self):
+        print(self.text)
+        for i, choix in enumerate(self.choix, 1):
+            print(f"{i}. choix")
+        rep = input("Votre choix : ")
+        return self.choix[int(rep) -1] == self.correct
+
+
+def poser_question_OLD(question_element):
     # Extraire le texte de la question
     question_text = question_element.find('text').text
     print(question_text)
@@ -34,7 +66,28 @@ def poser_question(question_element):
     else:
         return False
 
+def charger_questions(xml_file):
+    tree = ET.parse(xml_file)
+    root = tree.getroot()
+    questions = []
+
+    for questions_elem in root.findall("question"):
+        text = questions_elem.find("text").text
+        question_type = questions_elem.get("type")
+
+        if question_type == 'multiple_choice_1_correct':
+            question_choix = questions_elem.find("options")
+            choix = [choix_elem for choix_elem in question_choix.findall("option")]
+            questions.append(QuestionChoixMultiple(text, choix))
+
+        if question_type == 'true_false':
+            correct = "Aucun"
+            questions.append(VraiFaux(text))
+
+    return questions
+
 def quiz(fraction = 1.0):
+
     # Extraire toutes les questions
     questions = root.findall('question')
     # les mélanger
@@ -52,6 +105,7 @@ def quiz(fraction = 1.0):
         else:
             print("Mauvaise réponse !")
         print()
+
 
 
 def ajouter_quiz():
@@ -90,7 +144,8 @@ def ajouter_quiz():
     print("Nouveau quiz ajouté et enregistré avec succès !")
 
 
-def main_menu():
+def main_menu(questions):
+
     while True:
         print("1. Lancer le quiz")
         print("2. Ajouter une nouvelle question")
@@ -98,7 +153,7 @@ def main_menu():
         choice = input("Choisissez une option: ").strip()
 
         if choice == '1':
-            quiz()
+            quiz(questions)
         elif choice == '2':
             ajouter_quiz()
         elif choice == '3':
@@ -109,4 +164,6 @@ def main_menu():
 
 
 # Lancer le menu principal
-main_menu()
+questions = charger_questions(MAIN_FILE)
+
+main_menu(questions)

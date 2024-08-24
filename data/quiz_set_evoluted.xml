@@ -1,0 +1,76 @@
+<quiz>
+  <question type="multiple_choice_1_correct">
+    <text>Quel est le principal avantage des trains épicycloïdaux en termes de réduction de vitesse par rapport à un engrenage simple ?</text>
+    <options>
+      <option>Leur capacité à augmenter la vitesse avec moins de composants.</option>
+      <option correct="false">Leur capacité à réduire la vitesse tout en étant compacts.</option>
+      <option>Leur simplicité de conception et de fabrication.</option>
+      <option>Leur capacité à fonctionner sans lubrification.</option>
+    </options>
+    <answer>2. Leur capacité à réduire la vitesse tout en étant plus compacts.</answer>
+  </question>
+  <question>
+    <text>Dans un train épicycloïdal, lequel de ces éléments n'est pas considéré comme un des composants principaux ?</text>
+    <options>
+      <option>Les satellites.</option>
+      <option>Le porte-satellites.</option>
+      <option correct="true">Le différentiel.</option>
+      <option>La couronne.</option>
+    </options>
+    <answer>3. Le différentiel.</answer>
+  </question>
+  <question>
+    <text>D'où vient le terme « épicycloïdal » dans le contexte des trains épicycloïdaux ?</text>
+    <options>
+      <option>De la trajectoire circulaire que suivent les satellites autour du planétaire intérieur.</option>
+      <option>De la forme des dents des engrenages utilisés.</option>
+      <option correct="true">De la trajectoire suivant une épicycloïde d'un point des satellites par rapport au planétaire intérieur.</option>
+      <option>De la capacité du système à fonctionner en mode inverse.</option>
+    </options>
+    <answer>3. De la trajectoire suivant une épicycloïde d'un point des satellites par rapport au planétaire intérieur.</answer>
+  </question>
+  <question>
+    <text>Quelles sont les dates du règne d'Ashurbanipal ?  </text>
+    <options>
+      <option correct="true">de -669 à -631</option>
+      <option correct="false">de -754 à -702 </option>
+      <option correct="false">de -1804 à 1790 environ</option>
+    </options>
+  </question>
+  <question>
+    <text>Quelle était la couleur du cheval blanc d'Henri IV ? </text>
+    <options>
+      <option correct="false">marron</option>
+      <option correct="false">noir</option>
+      <option correct="true">blanc</option>
+      <option correct="false">vert</option>
+    </options>
+  </question>
+  <question>
+    <text>Quel est mon numéro de téléphone ?</text>
+    <options>
+      <option>24-45</option>
+      <option correct="true">10-38</option>
+      <option>15_72</option>
+      <option>15-63</option>
+    </options>
+  </question>
+  <question>
+    <text>Quel le numéro de notre cadre ?</text>
+    <options>
+      <option correct="false">14-63</option>
+      <option correct="true">15-63</option>
+      <option correct="false">15-64</option>
+      <option correct="false">11-63</option>
+    </options>
+  </question>
+  <question>
+    <text>Super question</text>
+    <options>
+      <option correct="false">reponse idiote</option>
+      <option correct="true">bonne réponse</option>
+      <option correct="false" />
+      <option correct="false" />
+    </options>
+  </question>
+</quiz>
