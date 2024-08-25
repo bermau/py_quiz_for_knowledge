@@ -9,36 +9,60 @@ tree = ET.parse(MAIN_FILE)
 root = tree.getroot()
 
 class Question:
-    def __init__(self, text):
-        self.text = text
+    def __init__(self, xml_element):
+        self.xml_element = xml_element
 
     def poser(self):
         raise NotImplementedError("Cette méthode n'a pas été implémentée.")
 
 class VraiFaux(Question):
-    def __init__(self, text):
-        super().__init__(text)
+    def __init__(self, xml_element):
+        super().__init__(xml_element)
 
 
     def poser(self):
-        print(self.text)
+        texte = self.xml_element.find('text')
+        print(texte.text)
         rep = input("répondre par vrai ou faux").lower()
-        return rep
+        return texte.get("correct") == rep
+
+
+class SpellString(Question):
+    def __init__(self, xml_element):
+        super().__init__(xml_element)
+
+    def poser(self):
+        texte = self.xml_element.find('text')
+        print(texte.text)
+        rep = input("réponse : ")
+        answer = self.xml_element.find('answer').text
+        if answer == rep:
+            print ("OK")
+            return True
+        else:
+            print(f"Erreur :     {answer}")
+            return False
 
 
 class QuestionChoixMultiple(Question):
     """Epreuve dans laquelle on doit saisir exactement une chaîne de caractères"""
-    def __init__(self, text, choix, ):
-        super().__init__(text)
-        self.choix = choix
+    def __init__(self, elm):
+        super().__init__(elm)
+        # self.choix = choix
         # self.correct = correct
 
     def poser(self):
-        print(self.text)
-        for i, choix in enumerate(self.choix, 1):
-            print(f"{i}. choix")
+        texte = self.xml_element.find('text')
+        options = self.xml_element.find("options")
+        option_lst = options.findall('option')
+
+        print(texte.text)
+        for i, choix in enumerate(option_lst, 1):
+            print(f"{i}. {choix.text}")
         rep = input("Votre choix : ")
-        return self.choix[int(rep) -1] == self.correct
+        print(option_lst)
+        print(option_lst[int(rep) - 1].get('correct'))
+        return option_lst[int(rep) -1].get('correct') == "true"
 
 
 def poser_question_OLD(question_element):
@@ -72,24 +96,27 @@ def charger_questions(xml_file):
     questions = []
 
     for questions_elem in root.findall("question"):
-        text = questions_elem.find("text").text
+        # text = questions_elem.find("text").text
         question_type = questions_elem.get("type")
 
         if question_type == 'multiple_choice_1_correct':
-            question_choix = questions_elem.find("options")
-            choix = [choix_elem for choix_elem in question_choix.findall("option")]
-            questions.append(QuestionChoixMultiple(text, choix))
+            # question_choix = questions_elem.find("options")
+            # choix = [choix_elem for choix_elem in question_choix.findall("option")]
+            questions.append(QuestionChoixMultiple(questions_elem))
 
         if question_type == 'true_false':
-            correct = "Aucun"
-            questions.append(VraiFaux(text))
+            # correct = "Aucun"
+            questions.append(VraiFaux(questions_elem))
+
+        if question_type == "spell_a_string":
+            questions.append(SpellString(questions_elem))
 
     return questions
 
-def quiz(fraction = 1.0):
+def quiz(questions, fraction = 1.0):
 
     # Extraire toutes les questions
-    questions = root.findall('question')
+    # questions = root.findall('question')
     # les mélanger
     random.shuffle(questions)
 
@@ -98,14 +125,21 @@ def quiz(fraction = 1.0):
     selected_questions = questions[:num_questions]
 
     for question in selected_questions:
-        # Mélanger les questions
-
-        if poser_question(question):
+        if question.poser():
             print("Bonne réponse !")
         else:
             print("Mauvaise réponse !")
         print()
 
+def test_for_question(questions, id=None):
+    """Search for and test a question with a given value"""
+    if id is None:
+        id = int(input("id de la question à tester"))
+
+    for question in questions:
+        if question.xml_element.get('id') == str(id):
+            question.poser()
+            break
 
 
 def ajouter_quiz():
@@ -138,9 +172,7 @@ def ajouter_quiz():
     ET.indent(tree, space="  ", level=0)
 
     # Sauvegarder le fichier XML
-    tree.write(MAIN_FILE, encoding='utf-8'
-               # , xml_declaration=True
-               )
+    tree.write(MAIN_FILE, encoding='utf-8')
     print("Nouveau quiz ajouté et enregistré avec succès !")
 
 
@@ -149,16 +181,19 @@ def main_menu(questions):
     while True:
         print("1. Lancer le quiz")
         print("2. Ajouter une nouvelle question")
+        print("4. Tester une question particulière (pour mise au point)")
         print("3. Quitter")
         choice = input("Choisissez une option: ").strip()
 
         if choice == '1':
-            quiz(questions)
+            quiz(questions, fraction = 1.0)
         elif choice == '2':
             ajouter_quiz()
         elif choice == '3':
             print("Au revoir !")
             break
+        elif choice == '4':
+            test_for_question(questions)
         else:
             print("Option invalide, veuillez réessayer.")
 
