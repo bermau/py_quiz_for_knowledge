@@ -68,32 +68,8 @@ class QuestionChoixMultiple(Question):
         return option_lst[int(rep) -1].get('correct') == "true"
 
 
-def poser_question_OLD(question_element):
-    # Extraire le texte de la question
-    question_text = question_element.find('text').text
-    print(question_text)
-
-    # Extraire les options de réponse, les présenter dans un ordre aléatoire.
-    options = question_element.find('options')
-    reponses_possibles = options.findall('option')
-    random.shuffle(reponses_possibles)
-
-    for idx, item in enumerate(reponses_possibles, 1):
-        print(f"{idx}. {item.text}")
-
-    # Demander une réponse à l'utilisateur
-    user_answer_int = int(input("Votre réponse (entrez le numéro): "))
-    if user_answer_int >= len(reponses_possibles) or user_answer_int < 0:
-        return False
-    # Vérifier la réponse
-    correctness = reponses_possibles[user_answer_int - 1].get('correct', None)
-
-    if correctness == "true":
-        return True
-    else:
-        return False
-
-def charger_questions(xml_file):
+def charger_questions(xml_file) -> list:
+    """Load questions of the xml_file. Return a list of object pointing to a question xml.element"""
     tree = ET.parse(xml_file)
     root = tree.getroot()
     questions = []
@@ -118,9 +94,7 @@ def charger_questions(xml_file):
 
 def quiz(questions, fraction = 1.0):
 
-    # Extraire toutes les questions
-    # questions = root.findall('question')
-    # les mélanger
+    # Extraire toutes les questions, les mélanger en sélectionner une fraction
     random.shuffle(questions)
 
     total_questions = len(questions)
