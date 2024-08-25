@@ -80,4 +80,17 @@
       <option correct="false" />
     </options>
   </question>
+  <question>
+    <text>5</text>
+    <options>
+      <option correct="false">10</option>
+      <option correct="false">erer</option>
+      <option correct="false" />
+      <option correct="false" />
+    </options>
+  </question>
+  <question type="true_false" id="1">
+    <text correct="faux">A la conférence de Potsdam le 17 juillet 45, les pays participants étaient les USA, la Grande Bretagne, L'URSS et la France.</text>
+    <explanation>La France ne fut pas invitée.</explanation>
+  </question>
 </quiz>

@@ -8,6 +8,7 @@ tree = ET.parse(MAIN_FILE)
 
 root = tree.getroot()
 
+
 class Question:
     def __init__(self, xml_element):
         self.xml_element = xml_element
@@ -15,16 +16,46 @@ class Question:
     def poser(self):
         raise NotImplementedError("Cette méthode n'a pas été implémentée.")
 
+    @classmethod
+    def create(cls):
+        rep = input('Ennoncé dans Class Question : ')
+        return cls(rep)
+
+
 class VraiFaux(Question):
     def __init__(self, xml_element):
         super().__init__(xml_element)
 
-
     def poser(self):
         texte = self.xml_element.find('text')
-        print(texte.text)
         rep = input("répondre par vrai ou faux").lower()
-        return texte.get("correct") == rep
+        print(texte.text)
+        correct =  texte.get("correct") == rep
+        if not correct:
+            print("Réponse incorrecte")
+            try:
+                print(self.xml_element.find("explanation").text)
+            except:
+                pass
+        else:
+            print("Réponse correcte")
+        return correct
+
+    @classmethod
+    def create(cls):
+        """Créer le xml à partir de questions"""
+        text = input("Ennoncé vrai_faux :")
+        while True:
+            response = input("Vrai ou faux ? ").lower()
+            if response in ["vrai", "faux"]:
+                break
+        explanation = input("Explication : ")
+
+        xml_str = f"""<question type="true_false">
+  <text correct="{response}">{text}</text>
+  <explanation>{explanation}</explanation>
+</question>"""
+        return xml_str
 
 
 class SpellString(Question):
@@ -37,7 +68,7 @@ class SpellString(Question):
         rep = input("réponse : ")
         answer = self.xml_element.find('answer').text
         if answer == rep:
-            print ("OK")
+            print("OK")
             return True
         else:
             print(f"Erreur :     {answer}")
@@ -64,8 +95,8 @@ class QuestionChoixMultiple(Question):
             print(f"{i}. {choix.text}")
         rep = input("Votre choix : ")
         print(option_lst)
-        print(option_lst[int(rep) - 1].get('correct'))
-        return option_lst[int(rep) -1].get('correct') == "true"
+        print(option_lst[int(rep)-1].get('correct'))
+        return option_lst[int(rep)-1].get('correct') == "true"
 
 
 def charger_questions(xml_file) -> list:
@@ -92,7 +123,8 @@ def charger_questions(xml_file) -> list:
 
     return questions
 
-def quiz(questions, fraction = 1.0):
+
+def quiz(questions, fraction=1.0):
 
     # Extraire toutes les questions, les mélanger en sélectionner une fraction
     random.shuffle(questions)
@@ -106,7 +138,9 @@ def quiz(questions, fraction = 1.0):
             print("Bonne réponse !")
         else:
             print("Mauvaise réponse !")
+
         print()
+
 
 def test_for_question(questions, id=None):
     """Search for and test a question with a given value"""
@@ -152,6 +186,28 @@ def ajouter_quiz():
     tree.write(MAIN_FILE, encoding='utf-8')
     print("Nouveau quiz ajouté et enregistré avec succès !")
 
+def create_question(quest):
+    """Ask the type of question to create, then create it"""
+    while True:
+        print("1. Question de type QCM")
+        print("2. Question de type vrai ou faux")
+        print("10.    Sortir")
+        choice = input("Choisissez une option: ").strip()
+
+        if choice == '1':
+            pass
+            break
+        elif choice == '2':
+            rep = VraiFaux.create()
+            print(rep)
+            break
+
+        elif choice == '10':
+            print("Au revoir !")
+            break
+        else:
+            print("Option invalide, veuillez réessayer.")
+
 
 def main_menu(questions):
 
@@ -159,18 +215,22 @@ def main_menu(questions):
         print("1. Lancer le quiz")
         print("2. Ajouter une nouvelle question")
         print("4. Tester une question particulière (pour mise au point)")
-        print("3. Quitter")
+        print("5. Créer une question")
+        print("10. Quitter")
         choice = input("Choisissez une option: ").strip()
 
         if choice == '1':
-            quiz(questions, fraction = 1.0)
+            quiz(questions, fraction=1.0)
         elif choice == '2':
             ajouter_quiz()
-        elif choice == '3':
-            print("Au revoir !")
-            break
         elif choice == '4':
             test_for_question(questions)
+        elif choice == '5':
+            create_question(questions)
+        elif choice == '10':
+            print("Au revoir !")
+            break
+
         else:
             print("Option invalide, veuillez réessayer.")
 
