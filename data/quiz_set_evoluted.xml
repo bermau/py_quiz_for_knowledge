@@ -12,7 +12,7 @@
   <question type="true_false">
     <text correct="true">La bataille de Marignan a eu lieu en 1515</text>
   </question>
-  <question type="spell_a_string" id = "17">
+  <question type="spell_a_string" id="17">
     <text>Ecrire le nom roi d'Assyrie qui monta sur le trône en -669 avJC</text>
     <answer>Ashurbanipal</answer>
   </question>
