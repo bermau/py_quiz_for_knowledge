@@ -1,7 +1,5 @@
 import xml.etree.ElementTree as ET
 import random
-# test
-
 
 # Constants :
 TYPE_SPELL = "spell_a_string"
@@ -118,6 +116,35 @@ class QuestionChoixMultiple(Question):
         print(option_lst[int(rep)-1].get('correct'))
         return option_lst[int(rep)-1].get('correct') == "true"
 
+    @classmethod
+    def create(cls):
+        # Créer un nouvel élément question
+        new_question = ET.Element('question')
+        new_question.set("type",  TYPE_QCM)
+
+
+        # Demander à l'utilisateur d'entrer le texte de la question
+        question_text = input("Entrez le texte de la question: ")
+        question_text_element = ET.SubElement(new_question, 'text')
+        question_text_element.text = question_text
+
+        # Ajouter les options de réponse
+        options_element = ET.SubElement(new_question, 'options')
+        for i in range(4):
+            option_text = input(f"Entrez le texte de la réponse {i + 1}: ")
+            option_element = ET.SubElement(options_element, 'option')
+            option_element.text = option_text
+
+            # Demander si cette réponse est la bonne
+            is_correct = input(f"Est-ce que la réponse {i + 1} est correcte ? (oui/non): ").strip().lower()
+            if is_correct == 'oui':
+                option_element.set('correct', 'true')
+            else:
+                option_element.set('correct', 'false')
+
+        ET.indent(new_question, space = "  ", level=0)
+        return new_question
+
 
 def charger_questions(xml_file) -> list:
     """Load questions of the xml_file. Return a list of object pointing to a question xml.element"""
@@ -176,6 +203,7 @@ def test_for_question(questions, id=None):
 def ajouter_quiz():
     # Créer un nouvel élément question
     new_question = ET.Element('question')
+    new_question.set("type", TYPE_QCM)
 
     # Demander à l'utilisateur d'entrer le texte de la question
     question_text = input("Entrez le texte de la question: ")
@@ -216,23 +244,29 @@ def create_question(quest):
         choice = input("Choisissez une option: ").strip()
 
         if choice == '1':
+            new_question = QuestionChoixMultiple.create()
             pass
-            break
         elif choice == '2':
-            rep = VraiFaux.create()
-            print(rep)
-            break
+            lmx_str = VraiFaux.create()
+            print(lmx_str)
+            new_question = ET.fromstring(lmx_str)
 
         elif choice == "3":
-            rep = SpellString.create()
-            print(rep)
-            break
+            lmx_str = SpellString.create()
+            print(lmx_str)
+            new_question = ET.fromstring(lmx_str)
 
         elif choice == '10':
             print("Au revoir !")
             break
         else:
             print("Option invalide, veuillez réessayer.")
+
+        if new_question:
+            root.append(new_question)
+            # Sauvegarder le fichier XML
+            tree.write(MAIN_FILE, encoding='utf-8')
+            print("Nouveau quiz ajouté et enregistré avec succès !")
 
 
 def main_menu(questions):
