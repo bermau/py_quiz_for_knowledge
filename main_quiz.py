@@ -53,8 +53,11 @@ class QuestionChoixMultiple(Question):
 
     def poser(self):
         texte = self.xml_element.find('text')
+
+        # Extraire les options de réponse, les présenter dans un ordre aléatoire.
         options = self.xml_element.find("options")
-        option_lst = options.findall('option')
+        option_lst = options.findall('option').copy()
+        random.shuffle(option_lst)
 
         print(texte.text)
         for i, choix in enumerate(option_lst, 1):
