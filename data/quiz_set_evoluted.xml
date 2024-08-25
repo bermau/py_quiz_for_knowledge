@@ -1,4 +1,8 @@
 <quiz>
+  <question type="spell_a_string" id = "2">
+          <text>Quel était le nom de code de la base où eu lieu la mise au point de bombe atomique américaine ?</text>
+          <answer>Los Alamos</answer>
+        </question>
   <question type="multiple_choice_1_correct">
     <text>Quel est le principal avantage des trains épicycloïdaux en termes de réduction de vitesse par rapport à un engrenage simple ?</text>
     <options>

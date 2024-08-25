@@ -2,6 +2,12 @@ import xml.etree.ElementTree as ET
 import random
 # test
 
+
+# Constants :
+TYPE_SPELL = "spell_a_string"
+TYPE_QCM = "multiple_choice_1_correct"
+TYPE_TRUE_FALSE = "true_false"
+
 # Charger le fichier XML
 MAIN_FILE = 'data/quiz_set_evoluted.xml'
 tree = ET.parse(MAIN_FILE)
@@ -28,17 +34,19 @@ class VraiFaux(Question):
 
     def poser(self):
         texte = self.xml_element.find('text')
-        rep = input("répondre par vrai ou faux").lower()
         print(texte.text)
+        rep = input("répondre par vrai ou faux").lower()
         correct =  texte.get("correct") == rep
         if not correct:
             print("Réponse incorrecte")
-            try:
-                print(self.xml_element.find("explanation").text)
-            except:
-                pass
         else:
             print("Réponse correcte")
+
+        try:
+            print(self.xml_element.find("explanation").text)
+        except:
+            pass
+
         return correct
 
     @classmethod
@@ -51,7 +59,7 @@ class VraiFaux(Question):
                 break
         explanation = input("Explication : ")
 
-        xml_str = f"""<question type="true_false">
+        xml_str = f"""<question type="{TYPE_TRUE_FALSE}">
   <text correct="{response}">{text}</text>
   <explanation>{explanation}</explanation>
 </question>"""
@@ -73,6 +81,18 @@ class SpellString(Question):
         else:
             print(f"Erreur :     {answer}")
             return False
+
+    @classmethod
+    def create(cls):
+        """Créer le xml à partir de questions"""
+        text = input("Ennoncé de type orthographe :")
+        answer = input("Réponse attendue : ")
+
+        xml_str = f"""<question type="{TYPE_SPELL}">
+  <text>{text}</text>
+  <answer>{answer}</answer>
+</question>"""
+        return xml_str
 
 
 class QuestionChoixMultiple(Question):
@@ -191,6 +211,7 @@ def create_question(quest):
     while True:
         print("1. Question de type QCM")
         print("2. Question de type vrai ou faux")
+        print("3. Question de type orthographe exacte")
         print("10.    Sortir")
         choice = input("Choisissez une option: ").strip()
 
@@ -199,6 +220,11 @@ def create_question(quest):
             break
         elif choice == '2':
             rep = VraiFaux.create()
+            print(rep)
+            break
+
+        elif choice == "3":
+            rep = SpellString.create()
             print(rep)
             break
 
