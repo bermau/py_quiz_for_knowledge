@@ -12,6 +12,15 @@ tree = ET.parse(MAIN_FILE)
 
 root = tree.getroot()
 
+def input_int_range(msg, inf, sup):
+    """Vérifie que la saisie est un entier entre inf et sup compris"""
+    while True:
+        try:
+            rep = int(input(msg + (" (Saisir un entier ({}-{})) : ".format(inf, sup))))
+            if isinstance(rep, int) and (rep >= inf) and (rep <= sup):
+                return rep
+        except:
+            pass
 
 class Question:
     def __init__(self, xml_element):
@@ -34,7 +43,13 @@ class VraiFaux(Question):
         texte = self.xml_element.find('text')
         print(texte.text)
         rep = input("répondre par vrai ou faux").lower()
-        correct =  texte.get("correct") == rep
+        # Attention la base est codée en anglais, la ligne suivante corrige pour le francais mais accèpte l'anglais.
+        if rep == "vrai":
+            rep = "true"
+        elif rep == "faux":
+            rep = "false"
+
+        correct = texte.get("correct") == rep
         if not correct:
             print("Réponse incorrecte")
         else:
@@ -111,8 +126,12 @@ class QuestionChoixMultiple(Question):
         print(texte.text)
         for i, choix in enumerate(option_lst, 1):
             print(f"{i}. {choix.text}")
-        rep = input("Votre choix : ")
-        print(option_lst)
+
+        # rep = input("Votre choix : ")
+        # rep = input("Votre choix : ")
+
+        rep = input_int_range("Votre choix : ", 1, len(option_lst))
+
         print(option_lst[int(rep)-1].get('correct'))
         return option_lst[int(rep)-1].get('correct') == "true"
 
