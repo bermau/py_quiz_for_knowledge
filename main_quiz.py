@@ -12,6 +12,7 @@ tree = ET.parse(MAIN_FILE)
 
 root = tree.getroot()
 
+
 def input_int_range(msg, inf, sup):
     """Vérifie que la saisie est un entier entre inf et sup compris"""
     while True:
@@ -21,6 +22,7 @@ def input_int_range(msg, inf, sup):
                 return rep
         except:
             pass
+
 
 class Question:
     def __init__(self, xml_element):
@@ -110,6 +112,7 @@ class SpellString(Question):
 
 class QuestionChoixMultiple(Question):
     """Epreuve dans laquelle on doit saisir exactement une chaîne de caractères"""
+
     def __init__(self, elm):
         super().__init__(elm)
         # self.choix = choix
@@ -132,15 +135,14 @@ class QuestionChoixMultiple(Question):
 
         rep = input_int_range("Votre choix : ", 1, len(option_lst))
 
-        print(option_lst[int(rep)-1].get('correct'))
-        return option_lst[int(rep)-1].get('correct') == "true"
+        print(option_lst[int(rep) - 1].get('correct'))
+        return option_lst[int(rep) - 1].get('correct') == "true"
 
     @classmethod
     def create(cls):
         # Créer un nouvel élément question
         new_question = ET.Element('question')
-        new_question.set("type",  TYPE_QCM)
-
+        new_question.set("type", TYPE_QCM)
 
         # Demander à l'utilisateur d'entrer le texte de la question
         question_text = input("Entrez le texte de la question: ")
@@ -161,14 +163,14 @@ class QuestionChoixMultiple(Question):
             else:
                 option_element.set('correct', 'false')
 
-        ET.indent(new_question, space = "  ", level=0)
+        ET.indent(new_question, space="  ", level=0)
         return new_question
 
 
 def charger_questions(xml_file) -> list:
     """Load questions of the xml_file. Return a list of object pointing to a question xml.element"""
-    tree = ET.parse(xml_file)
-    root = tree.getroot()
+    # tree = ET.parse(xml_file)
+    # root = tree.getroot()
     questions = []
 
     for questions_elem in root.findall("question"):
@@ -190,16 +192,18 @@ def charger_questions(xml_file) -> list:
     return questions
 
 
-def quiz(questions, fraction=1.0):
-
+def quiz(source_of_questions, fraction=1.0):
     # Extraire toutes les questions, les mélanger en sélectionner une fraction
-    random.shuffle(questions)
+    random.shuffle(source_of_questions)
 
-    total_questions = len(questions)
+    total_questions = len(source_of_questions)
     num_questions = int(total_questions * fraction)
-    selected_questions = questions[:num_questions]
 
-    for question in selected_questions:
+    print(f"Sélection de {num_questions} questions")
+    selected_questions = source_of_questions[:num_questions]
+
+    for question_i, question in enumerate(selected_questions, 1):
+        print(f"QUESTION {question_i} / {num_questions}")
         if question.poser():
             print("Bonne réponse !")
         else:
@@ -253,6 +257,7 @@ def ajouter_quiz():
     tree.write(MAIN_FILE, encoding='utf-8')
     print("Nouveau quiz ajouté et enregistré avec succès !")
 
+
 def create_question(quest):
     """Ask the type of question to create, then create it"""
     while True:
@@ -289,7 +294,6 @@ def create_question(quest):
 
 
 def main_menu(questions):
-
     while True:
         print("1. Lancer le quiz")
         print("2. Ajouter une nouvelle question")
