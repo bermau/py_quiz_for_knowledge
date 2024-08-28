@@ -13,7 +13,7 @@
     </options>
     <answer>2. Leur capacité à réduire la vitesse tout en étant plus compacts.</answer>
   </question>
-  <question type="true_false">
+  <question type="true_false" id = "10">
     <text correct="true">La bataille de Marignan a eu lieu en 1515</text>
   </question>
   <question type="spell_a_string" id="17">
