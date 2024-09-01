@@ -13,7 +13,7 @@
     </options>
     <answer>2. Leur capacité à réduire la vitesse tout en étant plus compacts.</answer>
   </question>
-  <question type="true_false" id = "10">
+  <question type="true_false" id="10">
     <text correct="true">La bataille de Marignan a eu lieu en 1515</text>
   </question>
   <question type="spell_a_string" id="17">
@@ -93,7 +93,7 @@
       <option correct="false" />
     </options>
   </question>
-  <question type="true_false" id="1">
+  <question type="true_false" id="11">
     <text correct="false">A la conférence de Potsdam le 17 juillet 45, les pays participants étaient les USA, la Grande Bretagne, L'URSS et la France.</text>
     <explanation>La France ne fut pas invitée.</explanation>
   </question>
@@ -102,7 +102,7 @@
     <answer>Edgar Hoover</answer>
   </question>
   <question type="true_false" id="3">
-    <text correct="false">La bombe 'little boy' était à déclenchement balistique.</text>
+    <text correct="true">La bombe 'little boy' était à déclenchement balistique.</text>
     <explanation>Dans le mécanisme balistique, deux portions d'Uranium 235 de masses non critiques sont réunies par une explosion. L'obtention de la masse critique résultante provoque la fission atomique.</explanation>
   </question>
   <question>
@@ -114,29 +114,48 @@
       <option correct="false" />
     </options>
   </question>
-<question><text>aaa</text><options><option correct="true">a</option><option correct="false">b</option><option correct="false">c</option><option correct="false" /></options></question>
+  <question type="true_false" id ="1">
+  <text correct="true">La vérité sort de la bouche des enfants</text>
+  <explanation>Ce n'est qu'un proverbe !</explanation>
+</question>
+
   <question>
-  <text>tututu</text>
-  <options>
-    <option correct="true">aaaa</option>
-    <option correct="false">bbbb</option>
-    <option correct="false">ccc</option>
-    <option correct="false">ddd</option>
-  </options>
-</question><question type="multiple_choice_1_correct">
-  <text>huhdezahei a daeda eaezd</text>
-  <options>
-    <option correct="false">aaaaa</option>
-    <option correct="false">bbbbb</option>
-    <option correct="true">dddd</option>
-    <option correct="false">eeeee</option>
-  </options>
-</question><question type="multiple_choice_1_correct" id="4">
-  <text>huhdezahei a daeda eaezd</text>
-  <options>
-    <option correct="false">aaaaa</option>
-    <option correct="false">bbbbb</option>
-    <option correct="true">dddd</option>
-    <option correct="false">eeeee</option>
-  </options>
+    <text>tututu</text>
+    <options>
+      <option correct="true">aaaa</option>
+      <option correct="false">bbbb</option>
+      <option correct="false">ccc</option>
+      <option correct="false">ddd</option>
+    </options>
+  </question>
+  <question type="multiple_choice_1_correct">
+    <text>huhdezahei a daeda eaezd</text>
+    <options>
+      <option correct="false">aaaaa</option>
+      <option correct="false">bbbbb</option>
+      <option correct="true">dddd</option>
+      <option correct="false">eeeee</option>
+    </options>
+  </question>
+  <question type="multiple_choice_1_correct" id="4">
+    <text>huhdezahei a daeda eaezd</text>
+    <options>
+      <option correct="false">aaaaa</option>
+      <option correct="false">bbbbb</option>
+      <option correct="true">dddd</option>
+      <option correct="false">eeeee</option>
+    </options>
+  </question>
+  <question type="multiple_choice_1_correct">
+    <text>0</text>
+    <options>
+      <option correct="false" />
+      <option correct="false" />
+      <option correct="false" />
+      <option correct="false" />
+    </options>
+  </question>
+<question type="true_false">
+  <text correct="vrai">La vérité sort de la bouche des enfants</text>
+  <explanation>Ce n'est qu'un proverbe !</explanation>
 </question></quiz>

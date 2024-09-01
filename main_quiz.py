@@ -23,6 +23,14 @@ def input_int_range(msg, inf, sup):
         except:
             pass
 
+def tr_true_false(rep):
+
+    if rep == "vrai":
+        rep = "true"
+    elif rep == "faux":
+        rep = "false"
+    return rep
+
 
 class Question:
     """General type question"""
@@ -40,6 +48,7 @@ class Question:
         return cls(rep)
 
 
+
 class VraiFaux(Question):
     """True or False question"""
     def __init__(self, text, correct, explanation=None, xml_element=None):
@@ -50,10 +59,7 @@ class VraiFaux(Question):
         print(self.text)
         rep = input("répondre par vrai ou faux").lower()
         # Attention la base est codée en anglais, la ligne suivante corrige pour le francais mais accèpte l'anglais.
-        if rep == "vrai":
-            rep = "true"
-        elif rep == "faux":
-            rep = "false"
+        rep = tr_true_false(rep)
 
         correct = self.correct == rep
         if not correct:
@@ -74,7 +80,9 @@ class VraiFaux(Question):
         text = input("Ennoncé vrai_faux :")
         while True:
             response = input("Vrai ou faux ? ").lower()
-            if response in ["vrai", "faux"]:
+            response = tr_true_false(response)
+
+            if response in ["true", "false"]:
                 break
         explanation = input("Explication : ")
 
