@@ -25,8 +25,11 @@ def input_int_range(msg, inf, sup):
 
 
 class Question:
-    def __init__(self, xml_element):
+    """General type question"""
+    def __init__(self, text, explanation = None, xml_element = None):
+        self.text = text
         self.xml_element = xml_element
+        self.explanation = explanation
 
     def poser(self):
         raise NotImplementedError("Cette méthode n'a pas été implémentée.")
@@ -38,12 +41,13 @@ class Question:
 
 
 class VraiFaux(Question):
-    def __init__(self, xml_element):
-        super().__init__(xml_element)
+    """True or False question"""
+    def __init__(self, text, correct, explanation=None):
+        super().__init__(text, explanation)
+        self.correct = correct
 
     def poser(self):
-        texte = self.xml_element.find('text')
-        print(texte.text)
+        print(self.text)
         rep = input("répondre par vrai ou faux").lower()
         # Attention la base est codée en anglais, la ligne suivante corrige pour le francais mais accèpte l'anglais.
         if rep == "vrai":
@@ -51,14 +55,14 @@ class VraiFaux(Question):
         elif rep == "faux":
             rep = "false"
 
-        correct = texte.get("correct") == rep
+        correct = self.correct == rep
         if not correct:
             print("Réponse incorrecte")
         else:
             print("Réponse correcte")
 
         try:
-            print(self.xml_element.find("explanation").text)
+            print(self.explanation)
         except:
             pass
 
@@ -130,9 +134,6 @@ class QuestionChoixMultiple(Question):
         for i, choix in enumerate(option_lst, 1):
             print(f"{i}. {choix.text}")
 
-        # rep = input("Votre choix : ")
-        # rep = input("Votre choix : ")
-
         rep = input_int_range("Votre choix : ", 1, len(option_lst))
 
         print(option_lst[int(rep) - 1].get('correct'))
@@ -169,25 +170,33 @@ class QuestionChoixMultiple(Question):
 
 def charger_questions(xml_file) -> list:
     """Load questions of the xml_file. Return a list of object pointing to a question xml.element"""
-    # tree = ET.parse(xml_file)
-    # root = tree.getroot()
+
     questions = []
 
     for questions_elem in root.findall("question"):
-        # text = questions_elem.find("text").text
+        text = questions_elem.find("text").text
         question_type = questions_elem.get("type")
 
         if question_type == 'multiple_choice_1_correct':
             # question_choix = questions_elem.find("options")
             # choix = [choix_elem for choix_elem in question_choix.findall("option")]
-            questions.append(QuestionChoixMultiple(questions_elem))
-
+            # questions.append(QuestionChoixMultiple(questions_elem))
+            pass
         if question_type == 'true_false':
             # correct = "Aucun"
-            questions.append(VraiFaux(questions_elem))
+            correct = questions_elem.find("text").get("correct", None)
+
+            explanation = None
+            expl = questions_elem.find("explanation")
+            if expl is not None:
+                explanation = expl.text
+
+
+            questions.append(VraiFaux(text, correct, explanation))
 
         if question_type == "spell_a_string":
-            questions.append(SpellString(questions_elem))
+            pass
+            # questions.append(SpellString(questions_elem))
 
     return questions
 
@@ -203,12 +212,11 @@ def quiz(source_of_questions, fraction=1.0):
     selected_questions = source_of_questions[:num_questions]
 
     for question_i, question in enumerate(selected_questions, 1):
-        print(f"QUESTION {question_i} / {num_questions}")
+        print(f"\nQUESTION {question_i} / {num_questions}")
         if question.poser():
             print("Bonne réponse !")
         else:
             print("Mauvaise réponse !")
-
         print()
 
 
