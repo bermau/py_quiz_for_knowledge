@@ -151,7 +151,7 @@ class QuestionChoixMultiple(Question):
 
         print(choix_correctness)
         as_expected = choix_correctness == True
-        print(f"La reponse est {as_expected}\n")
+        print(f"La réponse est {as_expected}\n")
         return as_expected
 
     @classmethod
@@ -167,7 +167,8 @@ class QuestionChoixMultiple(Question):
 
         # Ajouter les options de réponse
         options_element = ET.SubElement(new_question, 'options')
-        for i in range(4):
+        nb = int(input ("Nb of options ? "))
+        for i in range(nb):
             option_text = input(f"Entrez le texte de la réponse {i + 1}: ")
             option_element = ET.SubElement(options_element, 'option')
             option_element.text = option_text
@@ -179,8 +180,7 @@ class QuestionChoixMultiple(Question):
             else:
                 option_element.set('correct', 'false')
 
-        ET.indent(new_question, space="  ", level=0)
-        return new_question
+
 
 
 def load_questions(xml_file) -> list:

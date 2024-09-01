@@ -1,9 +1,9 @@
 <quiz>
-  <question type="spell_a_string" >
+  <question type="spell_a_string">
     <text>Quel était le nom de code de la base où eu lieu la mise au point de bombe atomique américaine ?</text>
     <answer>Los Alamos</answer>
   </question>
-  <question type="multiple_choice_1_correct">
+  <question type="multiple_choice_1_correct" id="2">
     <text>Quel est le principal avantage des trains épicycloïdaux en termes de réduction de vitesse par rapport à un engrenage simple ?</text>
     <options>
       <option>Leur capacité à augmenter la vitesse avec moins de composants.</option>
@@ -13,10 +13,10 @@
     </options>
     <answer>2. Leur capacité à réduire la vitesse tout en étant plus compacts.</answer>
   </question>
-  <question type="true_false" id="10">
+  <question type="true_false" >
     <text correct="true">La bataille de Marignan a eu lieu en 1515</text>
   </question>
-  <question type="spell_a_string" id="17">
+  <question type="spell_a_string">
     <text>Ecrire le nom roi d'Assyrie qui monta sur le trône en -669 avJC</text>
     <answer>Ashurbanipal</answer>
   </question>
@@ -40,7 +40,7 @@
     </options>
     <answer>3. De la trajectoire suivant une épicycloïde d'un point des satellites par rapport au planétaire intérieur.</answer>
   </question>
-  <question type="multiple_choice_1_correct" id="1">
+  <question type="multiple_choice_1_correct">
     <text>Quelles sont les dates du règne d'Ashurbanipal ?  </text>
     <options>
       <option correct="true">de -669 à -631</option>
@@ -48,7 +48,7 @@
       <option correct="false">de -1804 à 1790 environ</option>
     </options>
   </question>
-  <question type="multiple_choice_1_correct" id="111">
+  <question type="multiple_choice_1_correct">
     <text>Quelle était la couleur du cheval blanc d'Henri IV ? </text>
     <options>
       <option correct="false">marron</option>
@@ -67,86 +67,54 @@
     </options>
   </question>
 
-  <question>
-    <text>5</text>
-    <options>
-      <option correct="false">10</option>
-      <option correct="false">erer</option>
-      <option correct="false" />
-      <option correct="false" />
-    </options>
-  </question>
-  <question type="true_false" id="11">
+  <question type="true_false" >
     <text correct="false">A la conférence de Potsdam le 17 juillet 45, les pays participants étaient les USA, la Grande Bretagne, L'URSS et la France.</text>
     <explanation>La France ne fut pas invitée.</explanation>
   </question>
   <question type="spell_a_string">
-    <text>FBI</text>
+    <text>Qui était le Directeur du FBI pendant les années 1950 ? (Prénom et Nom)</text>
     <answer>Edgar Hoover</answer>
   </question>
-  <question type="true_false" id="3">
+  <question type="true_false" id="1">
     <text correct="true">La bombe 'little boy' était à déclenchement balistique.</text>
     <explanation>Dans le mécanisme balistique, deux portions d'Uranium 235 de masses non critiques sont réunies par une explosion. L'obtention de la masse critique résultante provoque la fission atomique.</explanation>
   </question>
-  <question>
-    <text>1</text>
-    <options>
-      <option correct="false">1</option>
-      <option correct="false" />
-      <option correct="false" />
-      <option correct="false" />
-    </options>
-  </question>
-  <question type="true_false">
+<question type="true_false">
   <text correct="true">La vérité sort de la bouche des enfants</text>
   <explanation>Ce n'est qu'un proverbe !</explanation>
 </question>
-
-  <question>
-    <text>tututu</text>
-    <options>
-      <option correct="true">aaaa</option>
-      <option correct="false">bbbb</option>
-      <option correct="false">ccc</option>
-      <option correct="false">ddd</option>
-    </options>
-  </question>
-  <question type="multiple_choice_1_correct">
-    <text>huhdezahei a daeda eaezd</text>
-    <options>
-      <option correct="false">aaaaa</option>
-      <option correct="false">bbbbb</option>
-      <option correct="true">dddd</option>
-      <option correct="false">eeeee</option>
-    </options>
-  </question>
-  <question type="multiple_choice_1_correct">
-    <text>huhdezahei a daeda eaezd</text>
-    <options>
-      <option correct="false">aaaaa</option>
-      <option correct="false">bbbbb</option>
-      <option correct="true">dddd</option>
-      <option correct="false">eeeee</option>
-    </options>
-  </question>
-  <question type="multiple_choice_1_correct">
-    <text>0</text>
-    <options>
-      <option correct="false" />
-      <option correct="false" />
-      <option correct="false" />
-      <option correct="false" />
-    </options>
-  </question>
 <question type="true_false">
-  <text correct="vrai">La vérité sort de la bouche des enfants</text>
-  <explanation>Ce n'est qu'un proverbe !</explanation>
-</question><question type="true_false">
   <text correct="false">Les piles jetables sont bonnes pour la planète</text>
   <explanation>Elles poluent la planète. Préférez les batteries rechargeables.</explanation>
 </question>
-  <question type="spell_a_string" id="18">
+  <question type="spell_a_string" id="3">
     <text>On écrit bizarre, bizard ou bizare ?</text>
     <answer>bizarre</answer>
   </question>
+
+
+<question type="spell_a_string">
+  <text>On écrit Gogo, Go Go, Go-Go, Gau-Gaux ou GoGau</text>
+  <answer>Gau-Gaux</answer>
+</question>
+<question type="true_false">
+  <text correct="false">margaux rentre au collège le mardi 3 septembre? répondre par vrai ou faux</text>
+  <explanation>le petite Margaux de 11 ans, 4 mois et 0 jour, ne fait pas sa rentré à l'école(contrairement à sa soeur) le 3 septembre mais le 2.'</explanation>
+</question>
+<question type="true_false" id="10">
+  <text correct="false">les verbes n'endormissager et n'espionnager ont ils bien étaient inventés par Margaux Maubert?</text>
+  <explanation>le verbe n'endormissager a bien était inventé par Margaux par conséquence, le verbe n'espionnager a était inventé par Marine dans Les Sisters</explanation>
+
+
+</question>
+  <question type="multiple_choice_1_correct">
+    <text> Margaux, Michelinne a été kiddnapée par un ciseau masqué le 22 août à 17h41. Le ciseau réclamant plus de feuilles à couper, un policier décide d'aller délivrer Micheline des mains de ce fou. Qui est ce policier ?</text>
+    <options>
+      <option>Fabrisse Lacolle</option>
+      <option correct="true">Gérard LestabillotViollet</option>
+      <option>Lucat Lestyloplumeaencre</option>
+      <option>Jojo LeblancosuperU</option>
+    </options>
+  </question>
+
 </quiz>
