@@ -28,8 +28,8 @@ class Question:
     """General type question"""
     def __init__(self, text, explanation = None, xml_element = None):
         self.text = text
-        self.xml_element = xml_element
         self.explanation = explanation
+        self.xml_element = xml_element
 
     def poser(self):
         raise NotImplementedError("Cette méthode n'a pas été implémentée.")
@@ -42,8 +42,8 @@ class Question:
 
 class VraiFaux(Question):
     """True or False question"""
-    def __init__(self, text, correct, explanation=None):
-        super().__init__(text, explanation)
+    def __init__(self, text, correct, explanation=None, xml_element=None):
+        super().__init__(text, explanation= explanation, xml_element=xml_element)
         self.correct = correct
 
     def poser(self):
@@ -106,7 +106,6 @@ class SpellString(Question):
         """Créer le xml à partir de questions"""
         text = input("Ennoncé de type orthographe :")
         answer = input("Réponse attendue : ")
-
         xml_str = f"""<question type="{TYPE_SPELL}">
   <text>{text}</text>
   <answer>{answer}</answer>
@@ -191,8 +190,7 @@ def charger_questions(xml_file) -> list:
             if expl is not None:
                 explanation = expl.text
 
-
-            questions.append(VraiFaux(text, correct, explanation))
+            questions.append(VraiFaux(text, correct, explanation, questions_elem))
 
         if question_type == "spell_a_string":
             pass
@@ -220,15 +218,18 @@ def quiz(source_of_questions, fraction=1.0):
         print()
 
 
-def test_for_question(questions, id=None):
+def test_for_question(id_tag=None):
     """Search for and test a question with a given value"""
-    if id is None:
-        id = int(input("id de la question à tester"))
+    if id_tag is None:
+        id_tag = int(input("id de la question à tester"))
 
     for question in questions:
-        if question.xml_element.get('id') == str(id):
-            question.poser()
-            break
+        if question.xml_element:
+            print("Je cherche ...")
+            if question.xml_element.get('id') == str(id_tag):
+                question.poser()
+                break
+
 
 
 def ajouter_quiz():
@@ -315,7 +316,7 @@ def main_menu(questions):
         elif choice == '2':
             ajouter_quiz()
         elif choice == '4':
-            test_for_question(questions)
+            test_for_question()
         elif choice == '5':
             create_question(questions)
         elif choice == '10':

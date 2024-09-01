@@ -94,7 +94,7 @@
     </options>
   </question>
   <question type="true_false" id="1">
-    <text correct="faux">A la conférence de Potsdam le 17 juillet 45, les pays participants étaient les USA, la Grande Bretagne, L'URSS et la France.</text>
+    <text correct="false">A la conférence de Potsdam le 17 juillet 45, les pays participants étaient les USA, la Grande Bretagne, L'URSS et la France.</text>
     <explanation>La France ne fut pas invitée.</explanation>
   </question>
   <question type="spell_a_string">
@@ -102,7 +102,7 @@
     <answer>Edgar Hoover</answer>
   </question>
   <question type="true_false" id="3">
-    <text correct="vrai">La bombe 'little boy' était à déclenchement balistique.</text>
+    <text correct="false">La bombe 'little boy' était à déclenchement balistique.</text>
     <explanation>Dans le mécanisme balistique, deux portions d'Uranium 235 de masses non critiques sont réunies par une explosion. L'obtention de la masse critique résultante provoque la fission atomique.</explanation>
   </question>
   <question>
