@@ -1,5 +1,5 @@
 <quiz>
-  <question type="spell_a_string" id="2">
+  <question type="spell_a_string" >
     <text>Quel était le nom de code de la base où eu lieu la mise au point de bombe atomique américaine ?</text>
     <answer>Los Alamos</answer>
   </question>
@@ -40,7 +40,7 @@
     </options>
     <answer>3. De la trajectoire suivant une épicycloïde d'un point des satellites par rapport au planétaire intérieur.</answer>
   </question>
-  <question type="multiple_choice_1_correct">
+  <question type="multiple_choice_1_correct" id="1">
     <text>Quelles sont les dates du règne d'Ashurbanipal ?  </text>
     <options>
       <option correct="true">de -669 à -631</option>
@@ -48,7 +48,7 @@
       <option correct="false">de -1804 à 1790 environ</option>
     </options>
   </question>
-  <question type="multiple_choice_1_correct">
+  <question type="multiple_choice_1_correct" id="111">
     <text>Quelle était la couleur du cheval blanc d'Henri IV ? </text>
     <options>
       <option correct="false">marron</option>
@@ -66,24 +66,7 @@
       <option>15-63</option>
     </options>
   </question>
-  <question type="multiple_choice_1_correct">
-    <text>Quel le numéro de notre cadre ?</text>
-    <options>
-      <option correct="false">14-63</option>
-      <option correct="true">15-63</option>
-      <option correct="false">15-64</option>
-      <option correct="false">11-63</option>
-    </options>
-  </question>
-  <question type="multiple_choice_1_correct">
-    <text>Super question</text>
-    <options>
-      <option correct="false">reponse idiote</option>
-      <option correct="true">bonne réponse</option>
-      <option correct="false" />
-      <option correct="false" />
-    </options>
-  </question>
+
   <question>
     <text>5</text>
     <options>
@@ -114,7 +97,7 @@
       <option correct="false" />
     </options>
   </question>
-  <question type="true_false" id="1">
+  <question type="true_false">
   <text correct="true">La vérité sort de la bouche des enfants</text>
   <explanation>Ce n'est qu'un proverbe !</explanation>
 </question>

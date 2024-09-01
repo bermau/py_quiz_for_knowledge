@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as ET
 import random
+from dataclasses import dataclass
 
 # Constants :
 TYPE_SPELL = "spell_a_string"
@@ -23,8 +24,8 @@ def input_int_range(msg, inf, sup):
         except:
             pass
 
-def tr_true_false(rep):
 
+def tr_true_false(rep):
     if rep == "vrai":
         rep = "true"
     elif rep == "faux":
@@ -34,7 +35,8 @@ def tr_true_false(rep):
 
 class Question:
     """General type question"""
-    def __init__(self, text, explanation = None, xml_element = None):
+
+    def __init__(self, text, explanation=None, xml_element=None):
         self.text = text
         self.explanation = explanation
         self.xml_element = xml_element
@@ -48,11 +50,11 @@ class Question:
         return cls(rep)
 
 
-
 class VraiFaux(Question):
     """True or False question"""
+
     def __init__(self, text, correct, explanation=None, xml_element=None):
-        super().__init__(text, explanation= explanation, xml_element=xml_element)
+        super().__init__(text, explanation=explanation, xml_element=xml_element)
         self.correct = correct
 
     def poser(self):
@@ -120,30 +122,37 @@ class SpellString(Question):
         return xml_str
 
 
+@dataclass
+class Text:
+    text: str
+    correct: bool
+
+
 class QuestionChoixMultiple(Question):
     """Epreuve dans laquelle on doit saisir exactement une chaîne de caractères"""
 
-    def __init__(self, elm):
-        super().__init__(elm)
-        # self.choix = choix
-        # self.correct = correct
+    def __init__(self, elm, options, **kwargs):
+        """ options : list of [text, True/False] """
+        super().__init__(elm, **kwargs)
+        self.options = options
 
     def poser(self):
-        texte = self.xml_element.find('text')
-
         # Extraire les options de réponse, les présenter dans un ordre aléatoire.
-        options = self.xml_element.find("options")
-        option_lst = options.findall('option').copy()
+        option_lst = self.options.copy()
         random.shuffle(option_lst)
-
-        print(texte.text)
+        print()
+        print(self.text)
         for i, choix in enumerate(option_lst, 1):
             print(f"{i}. {choix.text}")
 
         rep = input_int_range("Votre choix : ", 1, len(option_lst))
 
-        print(option_lst[int(rep) - 1].get('correct'))
-        return option_lst[int(rep) - 1].get('correct') == "true"
+        choix_correctness = option_lst[int(rep) - 1].correct
+
+        print(choix_correctness)
+        as_expected = choix_correctness == True
+        print(f"La reponse est {as_expected}\n")
+        return as_expected
 
     @classmethod
     def create(cls):
@@ -184,12 +193,19 @@ def load_questions(xml_file) -> list:
         question_type = questions_elem.get("type")
 
         if question_type == 'multiple_choice_1_correct':
-            # question_choix = questions_elem.find("options")
-            # choix = [choix_elem for choix_elem in question_choix.findall("option")]
-            # questions.append(QuestionChoixMultiple(questions_elem))
-            pass
+            options = questions_elem.find("options")
+            opt_lst = []
+            for elt in options.findall("option"):
+                bo = elt.get("correct", False)
+                if bo == "true":
+                    bo = True
+                elif bo == "false":
+                    bo = False
+                opt_lst.append(Text(elt.text, bo))
+
+            questions.append(QuestionChoixMultiple(text, opt_lst, xml_element=questions_elem))
+
         if question_type == 'true_false':
-            # correct = "Aucun"
             correct = questions_elem.find("text").get("correct", None)
 
             explanation = None
@@ -241,7 +257,6 @@ def test_for_question(id_tag=None):
             if question.xml_element.get('id') == str(id_tag):
                 question.poser()
                 break
-
 
 
 def ajouter_quiz():
