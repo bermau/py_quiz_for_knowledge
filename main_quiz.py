@@ -94,19 +94,18 @@ class VraiFaux(Question):
 
 
 class SpellString(Question):
-    def __init__(self, xml_element):
-        super().__init__(xml_element)
+    def __init__(self, text, answer, **kwargs):
+        super().__init__(text, **kwargs)
+        self.answer = answer
 
     def poser(self):
-        texte = self.xml_element.find('text')
-        print(texte.text)
+        print(self.text)
         rep = input("réponse : ")
-        answer = self.xml_element.find('answer').text
-        if answer == rep:
+        if self.answer == rep:
             print("OK")
             return True
         else:
-            print(f"Erreur :     {answer}")
+            print(f"Erreur :     {self.answer}")
             return False
 
     @classmethod
@@ -175,7 +174,7 @@ class QuestionChoixMultiple(Question):
         return new_question
 
 
-def charger_questions(xml_file) -> list:
+def load_questions(xml_file) -> list:
     """Load questions of the xml_file. Return a list of object pointing to a question xml.element"""
 
     questions = []
@@ -201,8 +200,13 @@ def charger_questions(xml_file) -> list:
             questions.append(VraiFaux(text, correct, explanation, questions_elem))
 
         if question_type == "spell_a_string":
-            pass
-            # questions.append(SpellString(questions_elem))
+
+            answer = None
+            ans = questions_elem.find("answer")
+            if ans is not None:
+                answer = ans.text
+
+            questions.append(SpellString(text, answer, xml_element=questions_elem))
 
     return questions
 
@@ -336,6 +340,6 @@ def main_menu(questions):
 
 
 # Lancer le menu principal
-questions = charger_questions(MAIN_FILE)
+questions = load_questions(MAIN_FILE)
 
 main_menu(questions)
