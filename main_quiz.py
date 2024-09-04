@@ -264,41 +264,6 @@ def test_for_question(id_tag=None):
             if question.xml_element.get('id') == str(id_tag):
                 question.poser()
                 break
-#
-#
-# def ajouter_quiz_OLD():
-#     # Créer un nouvel élément question
-#     new_question = ET.Element('question')
-#     new_question.set("type", TYPE_QCM)
-#
-#     # Demander à l'utilisateur d'entrer le texte de la question
-#     question_text = input("Entrez le texte de la question: ")
-#     question_text_element = ET.SubElement(new_question, 'text')
-#     question_text_element.text = question_text
-#
-#     # Ajouter les options de réponse
-#     options_element = ET.SubElement(new_question, 'options')
-#     for i in range(4):
-#         option_text = input(f"Entrez le texte de la réponse {i + 1}: ")
-#         option_element = ET.SubElement(options_element, 'option')
-#         option_element.text = option_text
-#
-#         # Demander si cette réponse est la bonne
-#         is_correct = input(f"Est-ce que la réponse {i + 1} est correcte ? (oui/non): ").strip().lower()
-#         if is_correct == 'oui':
-#             option_element.set('correct', 'true')
-#         else:
-#             option_element.set('correct', 'false')
-#
-#     # Ajouter la nouvelle question à la racine
-#     root.append(new_question)
-#
-#     # Indentation
-#     ET.indent(tree, space="  ", level=0)
-#
-#     # Sauvegarder le fichier XML
-#     tree.write(MAIN_FILE, encoding='utf-8')
-#     print("Nouveau quiz ajouté et enregistré avec succès !")
 
 
 def create_question(quest):
