@@ -78,7 +78,7 @@ class VraiFaux(Question):
         return correct
 
     @classmethod
-    def create(cls):
+    def create(cls)->str:
         """Créer le xml à partir de questions"""
         text = input("Ennoncé vrai_faux :")
         while True:
@@ -112,7 +112,7 @@ class SpellString(Question):
             return False
 
     @classmethod
-    def create(cls):
+    def create(cls)->str:
         """Créer le xml à partir de questions"""
         text = input("Ennoncé de type orthographe :")
         answer = input("Réponse attendue : ")
@@ -163,7 +163,7 @@ class QuestionChoixMultiple(Question):
         return as_expected
 
     @classmethod
-    def create(cls):
+    def create(cls)->str:
         # Créer un nouvel élément question
         new_question = ET.Element('question')
         new_question.set("type", TYPE_QCM)
@@ -277,17 +277,11 @@ def create_question(quest):
         new_question = None
         if choice == '1':
             new_question = QuestionChoixMultiple.create()
-            print(lmx_str)
-            new_question = ET.fromstring(lmx_str)
 
         elif choice == '2':
-            lmx_str = VraiFaux.create()
-            print(lmx_str)
             new_question = ET.fromstring(lmx_str)
 
         elif choice == "3":
-            lmx_str = SpellString.create()
-            print(lmx_str)
             new_question = ET.fromstring(lmx_str)
 
         elif choice == '10':
@@ -297,6 +291,8 @@ def create_question(quest):
             print("Option invalide, veuillez réessayer.")
 
         if new_question:
+            print(new_question)
+            new_question = ET.fromstring(new_question)
             root.append(new_question)
             # Sauvegarder le fichier XML
             tree.write(MAIN_FILE, encoding='utf-8')
