@@ -51,7 +51,7 @@ class Question:
         return cls(rep)
 
 
-class VraiFaux(Question):
+class TrueFalse(Question):
     """True or False question"""
 
     def __init__(self, text, correct, explanation=None, xml_element=None):
@@ -220,7 +220,7 @@ def load_questions(xml_file) -> list:
             if expl is not None:
                 explanation = expl.text
 
-            questions.append(VraiFaux(text, correct, explanation, questions_elem))
+            questions.append(TrueFalse(text, correct, explanation, questions_elem))
 
         if question_type == "spell_a_string":
 
@@ -277,13 +277,10 @@ def create_question(quest):
         new_question = None
         if choice == '1':
             new_question = QuestionChoixMultiple.create()
-
         elif choice == '2':
-            new_question = ET.fromstring(lmx_str)
-
+            new_question = TrueFalse.create()
         elif choice == "3":
-            new_question = ET.fromstring(lmx_str)
-
+            new_question = SpellString.create()
         elif choice == '10':
             print("Au revoir !")
             break
